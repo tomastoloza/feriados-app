@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/feriados-app/static/css/main.58ef12c8.chunk.css",
+    "main.js": "/feriados-app/static/js/main.96f4d97b.chunk.js",
+    "main.js.map": "/feriados-app/static/js/main.96f4d97b.chunk.js.map",
+    "runtime-main.js": "/feriados-app/static/js/runtime-main.28065afc.js",
+    "runtime-main.js.map": "/feriados-app/static/js/runtime-main.28065afc.js.map",
+    "static/js/2.d8b96655.chunk.js": "/feriados-app/static/js/2.d8b96655.chunk.js",
+    "static/js/2.d8b96655.chunk.js.map": "/feriados-app/static/js/2.d8b96655.chunk.js.map",
+    "static/js/3.1e30bd10.chunk.js": "/feriados-app/static/js/3.1e30bd10.chunk.js",
+    "static/js/3.1e30bd10.chunk.js.map": "/feriados-app/static/js/3.1e30bd10.chunk.js.map",
+    "index.html": "/feriados-app/index.html",
+    "static/css/main.58ef12c8.chunk.css.map": "/feriados-app/static/css/main.58ef12c8.chunk.css.map",
+    "static/js/2.d8b96655.chunk.js.LICENSE.txt": "/feriados-app/static/js/2.d8b96655.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.28065afc.js",
+    "static/js/2.d8b96655.chunk.js",
+    "static/css/main.58ef12c8.chunk.css",
+    "static/js/main.96f4d97b.chunk.js"
+  ]
+}
