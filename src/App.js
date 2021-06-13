@@ -9,10 +9,9 @@ function App() {
     const date = new Date().getFullYear()
     const fetchHolidays = async () => {
         try {
-            const api = await fetch(`http://nolaborables.com.ar/api/v2/feriados/${date}`);
-            console.log(api.status)
-            const response = await api.json();
-            return response;
+            const api = await fetch(`https://nolaborables.com.ar/api/v2/feriados/${date}`);
+            console.log("API Response: ", api.status, api.statusText)
+            return await api.json();
         } catch (error) {
             console.log(error);
         }
@@ -29,13 +28,7 @@ function App() {
 
     async function getHolidaysFromLocalStorage() {
         //Try to get the holidays from the local storage, if does not exist, fetch them from the api
-        let holidaysLocal = JSON.parse(localStorage.getItem("holidays"));
-        if (holidaysLocal.length === 0) {
-            let fetchedHolidays = fetchHolidays();
-            localStorage.setItem("holidays", JSON.stringify(fetchedHolidays))
-            return fetchedHolidays;
-        }
-        return holidaysLocal;
+        return fetchHolidays();
     }
 
     useEffect(() => {
@@ -43,35 +36,40 @@ function App() {
     }, []);
 
     const [showNextHolidays, setShowNextHolidays] = useState(false);
-    const [toggle, setToggle] = useState(false);
+    const [showHolidays, setShowHolidays] = useState(false);
 
     return (
         <div className={"App m-2"}>
             <h1 className={"font-bold text-4xl text-white p-8"}>Feriados {date}</h1>
             <div className={"text-white font-bold grid-cols-1"}>
                 <div onClick={() => setShowNextHolidays(!showNextHolidays)}
-                     className={"cursor-pointer bg-yellow-600 mx-auto w-1/3 p-2 m-2 rounded-lg h-full hover:bg-yellow-500"}>
+                     className={"select-none cursor-pointer bg-yellow-600 mx-auto p-2 m-2 rounded-lg h-full hover:bg-yellow-500"}>
                     <p>Proximos feriados {date}</p>
                 </div>
 
                 {showNextHolidays && holidays &&
-                <div className={"w-1/3 max-h-1/2 mx-auto m-2 p-2 bg-purple-800 rounded-lg h-full"}>
+                <div className={"mx-auto m-2 p-2 bg-purple-800 rounded-lg h-full"}>
                     {holidays.filter(holiday => filterUpcomingHoliday(holiday)).map(holiday => <Holiday
                         holiday={holiday}/>)}
                 </div>
                 }
 
-                <div onClick={() => setToggle(!toggle)}
-                     className={"cursor-pointer bg-yellow-600 mx-auto w-1/3 p-2 m-2 rounded-lg h-full hover:bg-yellow-500"}>
+                <div onClick={() => setShowHolidays(!showHolidays)}
+                     className={"select-none cursor-pointer bg-yellow-600 mx-auto p-2 m-2 rounded-lg h-full hover:bg-yellow-500"}>
                     <p>Feriados {date}</p>
                 </div>
-                {toggle && holidays &&
-                <div className={"w-1/3 max-h-1/2 mx-auto m-2 p-2 bg-purple-800 rounded-lg h-full"}>
+                {showHolidays && holidays &&
+                <div className={"max-h-1/2 mx-auto m-2 p-2 bg-purple-800 rounded-lg h-full"}>
                     {
                         holidays.map(holiday => <Holiday
                             holiday={holiday}/>)}
                 </div>
                 }
+            </div>
+            <div className={"text-white sticky bottom-2 bg-purple-900 p-2 my-auto"}>
+                Built by <a className={"text-yellow-500"} href="https://www.github.com/tomastoloza">@tomastoloza</a>, using <a className={"text-yellow-500"}
+                href="https://github.com/pjnovas/nolaborables">NoLaborables API REST</a> made by <a className={"text-yellow-500"}
+                href="https://github.com/pjnovas/">@pjnovas</a>
             </div>
         </div>
     );
