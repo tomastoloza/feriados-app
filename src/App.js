@@ -3,6 +3,7 @@ import './index.css';
 import {useEffect, useState} from "react";
 import Holiday from "./components/Holiday";
 
+
 function App() {
     const [holidays, setHolidays] = useState([]);
     const date = new Date().getFullYear()
@@ -41,21 +42,36 @@ function App() {
         getHolidaysFromLocalStorage().then(value => setHolidays(value));
     }, []);
 
+    const [showNextHolidays, setShowNextHolidays] = useState(false);
+    const [toggle, setToggle] = useState(false);
 
     return (
         <div className={"App m-2"}>
             <h1 className={"font-bold text-4xl text-white p-8"}>Feriados {date}</h1>
             <div className={"text-white font-bold grid-cols-1"}>
-                <div className={"bg-purple-600 w-1/3 p-2 rounded-lg h-full m-4 mx-auto"}>
+                <div onClick={() => setShowNextHolidays(!showNextHolidays)}
+                     className={"cursor-pointer bg-yellow-600 mx-auto w-1/3 p-2 m-2 rounded-lg h-full hover:bg-yellow-500"}>
                     <p>Proximos feriados {date}</p>
-                    {holidays && holidays.filter(holiday => filterUpcomingHoliday(holiday)).map(holiday => <Holiday
+                </div>
+
+                {showNextHolidays && holidays &&
+                <div className={"w-1/3 max-h-1/2 mx-auto m-2 p-2 bg-purple-800 rounded-lg h-full"}>
+                    {holidays.filter(holiday => filterUpcomingHoliday(holiday)).map(holiday => <Holiday
                         holiday={holiday}/>)}
                 </div>
-                <div className={"bg-purple-600 w-1/3 p-2 rounded-lg m-4 mx-auto"}>
+                }
+
+                <div onClick={() => setToggle(!toggle)}
+                     className={"cursor-pointer bg-yellow-600 mx-auto w-1/3 p-2 m-2 rounded-lg h-full hover:bg-yellow-500"}>
                     <p>Feriados {date}</p>
-                    {holidays && holidays.map(holiday => <Holiday
-                        holiday={holiday}/>)}
                 </div>
+                {toggle && holidays &&
+                <div className={"w-1/3 max-h-1/2 mx-auto m-2 p-2 bg-purple-800 rounded-lg h-full"}>
+                    {
+                        holidays.map(holiday => <Holiday
+                            holiday={holiday}/>)}
+                </div>
+                }
             </div>
         </div>
     );
