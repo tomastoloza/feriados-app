@@ -30,16 +30,22 @@ function App() {
     async function getHolidaysFromLocalStorage() {
         //Try to get the holidays from the local storage, if does not exist, fetch them from the api
         let holidaysLocal = JSON.parse(localStorage.getItem("holidays"));
-        if (holidaysLocal.length === 0) {
-            let fetchedHolidays = fetchHolidays();
-            localStorage.setItem("holidays", JSON.stringify(fetchedHolidays))
+        if (holidaysLocal === null || Object.keys(holidaysLocal).length === 0) {
+            let fetchedHolidays = await fetchHolidays();
+            localStorage.setItem("holidays", JSON.stringify(fetchedHolidays));
             return fetchedHolidays;
         }
         return holidaysLocal;
     }
 
     useEffect(() => {
-        getHolidaysFromLocalStorage().then(value => setHolidays(value));
+        async function localStorage() {
+            return getHolidaysFromLocalStorage();
+        }
+
+        localStorage().then(value => {
+            setHolidays(value);
+        });
     }, []);
 
     const [showNextHolidays, setShowNextHolidays] = useState(false);
