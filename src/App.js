@@ -42,9 +42,7 @@ function App() {
         async function localStorage() {
             return getHolidaysFromLocalStorage();
         }
-
         localStorage().then(value => {
-            console.log("localstorage = ", value)
             setHolidays(value);
         });
     }, []);
