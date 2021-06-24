@@ -49,7 +49,7 @@ function App() {
         });
     }, []);
 
-    let title = <p>Feriados {date}</p>;
+    let title = `Feriados ${date}`;
     return (
         <div className={"App m-2"}>
             <h1 className={"font-bold text-4xl text-white p-8"}>{title}</h1>
